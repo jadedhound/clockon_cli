@@ -1,9 +1,8 @@
-use std::collections::HashMap;
-
 use reqwest::{
     blocking::Client,
     header::{HeaderValue, COOKIE},
 };
+use std::collections::HashMap;
 
 type BoxedError<T> = Result<T, Box<dyn std::error::Error>>;
 
@@ -17,7 +16,7 @@ enum MyError {
     LoginFailure,
     ActionFailure(usize),
     NoOperator,
-    NoOperatorMod,
+    NoActionToTake,
 }
 
 impl std::error::Error for MyError {
@@ -36,6 +35,54 @@ impl std::fmt::Display for MyError {
     }
 }
 
+#[derive(Debug)]
+enum Status {
+    ClockedOn,
+    ClockedOff,
+    OnBreak,
+}
+
+impl Status {
+    fn to_action(&self, turn_on: bool) -> BoxedError<Action> {
+        let action = match self {
+            Status::ClockedOn => {
+                if turn_on {
+                    Action::BreakOn
+                } else {
+                    Action::ClockOff
+                }
+            }
+            Status::ClockedOff => {
+                if turn_on {
+                    Action::ClockOn
+                } else {
+                    Err(MyError::NoActionToTake)?
+                }
+            }
+            Status::OnBreak => {
+                if turn_on {
+                    Err(MyError::NoActionToTake)?
+                } else {
+                    Action::BreakOff
+                }
+            }
+        };
+        Ok(action)
+    }
+}
+
+impl std::fmt::Display for Status {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            Status::ClockedOn => "Clocked On",
+            Status::ClockedOff => "Clocked Off",
+            Status::OnBreak => "Clocked On (On Break)",
+        };
+        write!(f, "Status: {s}")
+    }
+}
+
+#[derive(Debug)]
 enum Action {
     ClockOn,
     ClockOff,
@@ -76,7 +123,7 @@ fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<()> {
     }
 }
 
-fn login(client: &Client, id: &str) -> BoxedError<()> {
+fn login(client: &Client, id: &str) -> BoxedError<String> {
     println!("Logging in");
     let form = HashMap::from([
         ("USRNMEEDT", "var"),
@@ -86,7 +133,7 @@ fn login(client: &Client, id: &str) -> BoxedError<()> {
     let res = client.post(URL).header(COOKIE, id).form(&form).send()?;
     let body = res.text()?;
     if body.len() < 75000 {
-        Ok(())
+        Ok(body)
     } else {
         Err(MyError::LoginFailure)?
     }
@@ -103,32 +150,106 @@ fn get_cookie(client: &Client) -> BoxedError<HeaderValue> {
     Ok(cookie)
 }
 
-fn get_action() -> BoxedError<Action> {
-    let mut args = std::env::args();
-    let operator = args.nth(1).ok_or(MyError::NoOperator)?;
-    let modifier = args.next().ok_or(MyError::NoOperatorMod)?;
-    let action = match operator.as_ref() {
-        "log" => match modifier.as_ref() {
-            "on" => Action::ClockOn,
-            _ => Action::ClockOff,
-        },
-        "break" => match modifier.as_ref() {
-            "on" => Action::BreakOn,
-            _ => Action::BreakOff,
-        },
-        _ => Err(MyError::NoOperator)?,
+fn get_disabled_status(line: &str) -> bool {
+    let substr: String = line.chars().skip(30).take(8).collect();
+    substr == "DISABLED"
+}
+
+fn get_status(html: &str) -> BoxedError<Status> {
+    let mut lines = html.lines();
+    let logged_off = get_disabled_status(lines.nth(171).unwrap());
+    let no_break = get_disabled_status(lines.nth(1).unwrap());
+    let status = if logged_off {
+        Status::ClockedOff
+    } else if no_break {
+        Status::ClockedOn
+    } else {
+        Status::OnBreak
     };
-    Ok(action)
+    println!("{status}");
+    Ok(status)
+}
+
+fn get_operator() -> BoxedError<bool> {
+    let op = std::env::args().nth(1).ok_or(MyError::NoOperator)?;
+    if op == "on" {
+        Ok(true)
+    } else if op == "off" {
+        Ok(false)
+    } else {
+        Err(MyError::NoOperator)?
+    }
 }
 
 fn main() -> BoxedError<()> {
-    let action = get_action()?;
     let client = reqwest::blocking::Client::builder()
         .user_agent(UAGENT)
         .danger_accept_invalid_certs(true)
         .build()?;
     let id = extract_session_id(get_cookie(&client)?)?;
-    login(&client, &id)?;
+    let body = login(&client, &id)?;
+    let status = get_status(&body)?;
+    let action = status.to_action(get_operator()?)?;
     do_action(&client, &id, action)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn action_if_clocked_on_and_on() {
+        let body = std::fs::read_to_string("./test_files/clocked_on.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(true).expect("should get action");
+        assert_eq!("BRKSTABTN", action.to_string());
+    }
+    #[test]
+    fn action_if_clocked_on_and_off() {
+        let body = std::fs::read_to_string("./test_files/clocked_on.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(false).expect("should get action");
+        assert_eq!("CLKOFFBTN", action.to_string());
+    }
+    #[test]
+    fn action_if_clocked_off_and_on() {
+        let body = std::fs::read_to_string("./test_files/clocked_off.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(true).expect("should get action");
+        assert_eq!("CLKONBTN", action.to_string());
+    }
+    #[test]
+    fn action_if_clocked_off_and_off() {
+        let body = std::fs::read_to_string("./test_files/clocked_off.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(false).expect_err("should be an error");
+        assert_eq!(
+            format!("{:?}", MyError::NoActionToTake),
+            format!("{:?}", action)
+        );
+    }
+    #[test]
+    fn action_if_on_break_and_on() {
+        let body = std::fs::read_to_string("./test_files/on_break.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(true).expect_err("should be an error");
+        assert_eq!(
+            format!("{:?}", MyError::NoActionToTake),
+            format!("{:?}", action)
+        );
+    }
+    #[test]
+    fn action_if_on_break_and_off() {
+        let body = std::fs::read_to_string("./test_files/on_break.html")
+            .expect("unable to find test file");
+        let result = get_status(&body).expect("should be able to get status");
+        let action = result.to_action(false).expect("should get action");
+        assert_eq!("BRKENDBTN", action.to_string());
+    }
 }

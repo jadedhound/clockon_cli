@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta Name="GENERATOR" content="IntraWeb v15.0.6 Serial 201835620">
+<script type="text/javascript" src="Validation.js?v=4499700239076851867139"></script>
+
+<link rel="stylesheet" type="text/css" href="/clockon_default.css">
+
+
+
+<link href="/$/css/IWNotify.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+var GURLBase="/$/", GAppID="tP1plG26SKE39DDurBxg5W", GTrackID=2;
+</script>
+<script type="text/javascript" src="/$/js/IWLib__EDBA06691.js"></script>
+<script type="text/javascript" src="/$/js/IWBase__EDBA06691.js"></script>
+<script type="text/javascript" src="/$/js/IWGecko__EDBA06691.js"></script>
+<script type="text/javascript">
+function CLKOFFBTN_onclick(event) {
+var confirmed = window.confirm("'You are about to clock off. Is this correct?");
+if (confirmed){
+  return true;
+} else {
+  return false;
+};}
+function BRKSTABTN_onclick(event) {
+var confirmed = window.confirm("'You are about to clock onto a break. Is this correct?");
+
+if (confirmed){
+  return true;
+} else {
+  return false;
+};}
+function BRKENDBTN_onclick(event) {
+var confirmed = window.confirm("'You are about to clock off a break. Is this correct?");
+
+if (confirmed){
+  return true;
+} else {
+  return false;
+};}
+function CLKONBTN_onclick(event) {
+var confirmed = window.confirm("'You are about to clock on. Is this correct?");
+
+if (confirmed){
+  return true;
+} else {
+  return false;
+};}
+function DELMSGBTN_onclick(event) {
+return SubmitClickConfirm('DELMSGBTN','', true, '');}
+var MANMNU_menu;
+GImageCache_MANMNU_arrow=new Image();
+GImageCache_MANMNU_arrow.src="/$/gfx/menu_arrow_right.gif";
+function G0PartialDynInit() {for(di=0;di<5;di++) { + IWTop().G0DynaEditPartialUpdate(null,0,di,-1); }}function G0ScrollInit() {DoScrollIntoView(MSGGRDObj);}function G0FocusInit(ctrl) {}function G0DynaEditPartialUpdate(ctrl,c,r,sel) {C0 = 1*IWTop().document.getElementById("G0D"+r+"C0").innerHTML;C2 = 1*IWTop().document.getElementById("G0D"+r+"C2").innerHTML;C3 = 1*IWTop().document.getElementById("G0D"+r+"C3").innerHTML;C4 = 1*IWTop().document.getElementById("G0D"+r+"C4").innerHTML; if ((ctrl != null) | (r == 4)) {}if (ctrl != null) {  if (sel == 2) IWTop().DynaCheck(MSGGRDObj,ctrl,r,c);  else IWTop().DynaEdit(MSGGRDObj,ctrl,r,c); }}function MSGGRDObj(){  this.id = "MSGGRD";  this.fids = "G0";  this.hasdynedits = false;  this.pcol = ""  this.stcol = "#000000"  this.scol = ""  this.bands = false  this.activerowcolor = ""  this.activerowfontcolor = ""  this.myEl = ""  this.colchecktrue = new Array(5)  this.colcheckfalse = new Array(5)  this.coltype = new Array(5)  this.coledit = new Array(5)  this.columncolors = new Array(5)  this.colwidth = new Array(5)  this.coltextcolors = new Array(5)  this.combopromptindex = new Array(5)  this.combopromptindexlist = new Array(5)  this.combopromptsave = new Array(5)  this.combopromptvalue = new Array(5)  this.cellstate = new Array(5)  this.detailstate = new Array(5)  this.szw = 0;  this.event = null;  this.mvc = 0;  this.newval = 0;  this.origval = 0;  this.origwidth = -1;  this.origfullwidth = -1  this.rcount = 5;  this.selcol = -1;  this.selrow = -1;  this.seledit = ""  this.editcol = -1  this.editrow = -1  this.checkrow = -1  this.origval = ""  this.focusel = null;  this.ccount = 5;  this.scrollpos = 0;  this.scrollleft = 0;  this.scrollintoview = true;  this.pageoffset = 0;  this.rowoffset = 0;  this.rowsonpage = 5;  this.decimalpoint = 46;  this.showselect = true;  this.curpage = 0;  this.selectcolor = "#0078D7";  this.selectfontcolor = "#FFFFFF";  this.hovercolor = "";  this.hoverfontcolor = "";  this.fontcolor = "";  this.oncheckclick = false;  this.onimageclick = false;  this.onbuttonclick = false;  this.onlinkclick = false;  this.oncombochange = false;  this.oncomboprompt = false;  this.onnodeclose = false;  this.onnodeopen = false;  this.onvalueclick = false;  this.oncellclick = false;  this.onasynccellclick = false;  this.onasyncbuttonclick = false;  this.onasynccheckclick = false;  this.onasyncrowselect = false;  this.onasyncactiverowmove = false;  this.onasyncimageclick = false;  this.onasynclinkclick = false;  this.onasynccombochange = false;  this.onasynccomboprompt = false;  this.onasyncedit = false;  this.onasynceditdone = false;  this.onasynceditstart = false;  this.showrowheader = false;  this.showcolheader = true;  this.showfooter = true;  this.autoedit = false;  this.advanceonreturn = false;  this.scrollpersistent = true;  this.editselectall = false;MSGGRDObj.prototype.colsizemove = function(e) { obj = MSGGRDObj if (ie)  nval = obj.event.x - obj.szw else  nval = e.pageX - obj.szw  newval = obj.origval + parseInt(nval);  if (newval <= 0)    newval = obj.origval;if (ie)  document.selection.empty();if (navigator.appName == "Netscape")  window.getSelection().removeAllRanges();    if (!document.styleSheets) return;   var i;   var found = false;   for (i = 0; i < document.styleSheets.length ; i++)   {       if (document.styleSheets[i].id == "MSGGRDnowrapcol"){         found = true;         break;}   }   if (found){    var mycss = new Array();    if (document.styleSheets[i].cssRules)  // Mozilla       mycss = document.styleSheets[i].cssRules;    else       mycss = document.styleSheets[i].rules;  // IE    if (newval > 5)      mycss[obj.mvc - 1].style.width = newval - 5;    else      mycss[obj.mvc - 1].style.width = 1;   }    s = obj.fids + "c" + obj.mvc + "r" + 1;    document.getElementById(s).width = newval;    sh = obj.fids + "CH" + obj.mvc;    document.getElementById(sh).style.width = newval;    document.getElementById(sh).firstChild.style.width = newval;    var mg = document.getElementById(obj.fids + "mg");      mg.width = obj.origwidth + parseInt(nval);      mg.firstChild.width = mg.width;      mg.firstChild.firstChild.width = obj.origfullwidth + parseInt(nval);    var div3 = document.getElementById(obj.id + "div3");    if (div3)      div3.firstChild.width = mg.width + "px";}MSGGRDObj.prototype.clientgridkeydown = function(obj,c,r,event) {}MSGGRDObj.prototype.clientcheckclick = function(obj,c,r) {}MSGGRDObj.prototype.clientimageclick = function(obj,c,r,s) {}MSGGRDObj.prototype.clientbuttonclick = function(obj,c,r,s) {}MSGGRDObj.prototype.clienteditchange = function(obj,ctrl,c,r) {}MSGGRDObj.prototype.clientdyneditchange = function(obj,ctrl,c,r) {}MSGGRDObj.prototype.clienteditdone = function(obj,ctrl,c,r) {}MSGGRDObj.prototype.clientcombochange = function(obj,ctrl,c,r) {}MSGGRDObj.prototype.clientnodeclick = function(obj,r) {}MSGGRDObj.prototype.clienthoverrow = function(obj,r) {}MSGGRDObj.prototype.clientcellclick = function(obj,c,r) {}MSGGRDObj.prototype.clientpopupeditok = function(obj,ctrl, cellid, c, r) {}MSGGRDObj.prototype.clientpopupeditcancel = function(obj,ctrl,c,r) {}  this.maxpages = 1;this.columncolors[0] = ""this.coltextcolors[0] = "#000000"this.columncolors[1] = ""this.coltextcolors[1] = "#000000"this.columncolors[2] = ""this.coltextcolors[2] = "#000000"this.columncolors[3] = ""this.coltextcolors[3] = "#000000"this.columncolors[4] = ""this.coltextcolors[4] = "#000000"this.cellstate[0] = "0"this.detailstate[0] = "0"this.cellstate[1] = "0"this.detailstate[1] = "0"this.cellstate[2] = "0"this.detailstate[2] = "0"this.cellstate[3] = "0"this.detailstate[3] = "0"this.cellstate[4] = "0"this.detailstate[4] = "0"this.coltype[0] = "Normal"this.coltype[1] = "CheckBox"this.coltype[2] = "Normal"this.coltype[3] = "Normal"this.coltype[4] = "Normal"this.coledit[0] = "Numeric"this.coledit[1] = "None"this.coledit[2] = "None"this.coledit[3] = "None"this.coledit[4] = "None"this.colchecktrue[0] = "true"this.colcheckfalse[0] = "false"this.colchecktrue[1] = "true"this.colcheckfalse[1] = "false"this.colchecktrue[2] = "true"this.colcheckfalse[2] = "false"this.colchecktrue[3] = "true"this.colcheckfalse[3] = "false"this.colchecktrue[4] = "true"this.colcheckfalse[4] = "false"this.colwidth[0] = "50"this.colwidth[1] = "20"this.colwidth[2] = "70"this.colwidth[3] = "350"this.colwidth[4] = "250"this.combopromptindex[0] = -1this.combopromptindex[1] = -1this.combopromptindex[2] = -1this.combopromptindex[3] = -1this.combopromptindex[4] = -1this.combopromptindexlist[0] = ""this.combopromptindexlist[1] = ""this.combopromptindexlist[2] = ""this.combopromptindexlist[3] = ""this.combopromptindexlist[4] = ""this.combopromptvalue[0] = ""this.combopromptvalue[1] = ""this.combopromptvalue[2] = ""this.combopromptvalue[3] = ""this.combopromptvalue[4] = ""this.combopromptsave[0] = -1this.combopromptsave[1] = -1this.combopromptsave[2] = -1this.combopromptsave[3] = -1this.combopromptsave[4] = -1  this.scrollstyle = "scNever"}MSGGRDObj = new MSGGRDObj();function MSGGRDsbwidth(){   if (sbw == -1)	  sbw = getScrollBarWidth();  var div3 = document.getElementById("MSGGRDdiv3");}function G0PostValidate(sel) {submval = FindElem('MSGGRD').value;s_ar= submval.split("|");processAjaxEvent('onPost', MSGGRDIWCL,'MSGGRD.DoAsyncPost',true, null, true);}
+function Body_OnBlur(){GSubmitting = false;}
+function FormDefaultSubmit()
+{return false;}
+function IWTop(){return window;}
+function Validate() {
+  return true;
+}
+
+function InitIWCLObjects() {
+  var f = IW.initIWCL, p = IWCLForm;
+  f(p,"MANRGN",0).SetProp("BorderWidthPixels",0)
+  f(MANRGNIWCL,"LGOIMG",0)
+  f(MANRGNIWCL,"MSGLBL",0)
+  f(MANRGNIWCL,"DTLRGN",0).SetProp("BorderWidthPixels",0)
+  f(DTLRGNIWCL,"IWLABEL6",0)
+  f(DTLRGNIWCL,"DSPNMELBL",0)
+  f(MANRGNIWCL,"CLOCKONREGION",0).SetProp("BorderWidthPixels",0)
+  f(CLOCKONREGIONIWCL,"BRKDTLLBL",0)
+  f(CLOCKONREGIONIWCL,"SFTNMELBL",0)
+  f(CLOCKONREGIONIWCL,"IWLABEL7",0)
+  f(CLOCKONREGIONIWCL,"CLKOFFBTN",0).HookEvent("click",CLKOFFBTN_onclick).HookDH("OnClick")
+  f(CLOCKONREGIONIWCL,"BRKSTABTN",0).HookEvent("click",BRKSTABTN_onclick).HookDH("OnClick")
+  f(CLOCKONREGIONIWCL,"BRKENDBTN",0).HookEvent("click",BRKENDBTN_onclick).HookDH("OnClick")
+  f(CLOCKONREGIONIWCL,"CLKONBTN",0).HookEvent("click",CLKONBTN_onclick).HookDH("OnClick")
+  f(MANRGNIWCL,"TMEZNERGN",0).SetProp("BorderWidthPixels",0)
+  f(TMEZNERGNIWCL,"TMELOCLBL",0)
+  f(TMEZNERGNIWCL,"LOCCBX",1).HookDH("OnChange")
+  f(MANRGNIWCL,"CPYRHTRGN",0).SetProp("BorderWidthPixels",0)
+  f(CPYRHTRGNIWCL,"IWLABEL20",0).SetAlign(2).SetAnchors(1,1,0,1)
+  f(CPYRHTRGNIWCL,"IWLABEL2",0).SetAlign(2).SetAnchors(1,1,0,1)
+  f(CPYRHTRGNIWCL,"IWREGION1",0).SetAlign(1).SetAnchors(1,1,1,0).SetProp("BorderWidthPixels",0)
+  f(MANRGNIWCL,"MANMNU",0).SetAlign(0).SetAnchors(1,1,1,0)
+  f(MANRGNIWCL,"SELALLMSGBTN",0).HookDH("OnClick")
+  f(MANRGNIWCL,"DELMSGBTN",0).HookEvent("click",DELMSGBTN_onclick)
+  f(MANRGNIWCL,"MSGGRD",1)
+}
+
+function Initialize() {
+GActivateLock = true;
+InitRects(794, 800);
+InitIWCLObjects();
+AttachBeforeUnload();
+history.go(1);
+if (MANMNUIWCL){MANMNU_menu = initMenu("MANMNU")
+with (MANMNU_menu) {
+  SelectedItemStyle = "default-mainmenu-selected";
+  MenuOrientation = moHorizontal;
+with (addMenuItem("MANMNU_submenu1", id)) { 
+  SelectedItemStyle = "default-mainmenu-selected";
+}
+}
+MANMNU_menu.ComboBoxHide = true;}
+
+FindElem('MSGGRD').value="00000|R0|0^0|x|6118||||";
+
+
+MSGGRDsbwidth();
+G0ScrollInit();
+
+G0FocusInit("G0D0C0")
+
+
+Body_OnResize();
+window.onresize = Body_OnResize;
+document.body.onblur = Body_OnBlur;
+IW.Utils.fixIEMargins();
+ReleaseLock();
+IW.Utils.setActiveControl("BRKDTLLBL");
+
+}
+</script>
+<script type="text/javascript" src="/$/js/IWMenu__EDBA06691.js"></script>
+<script type="text/javascript" src="/$/js/TMSGRID__EDBA06691.js"></script>
+
+
+
+
+
+<style type="text/css">
+.DSPNMELBLCSS {position: absolute; left: 456px; top: 6px;z-index: 100; width: 268px; height: 14px; padding: 0; font-family: 'Segoe UI'; font-weight: normal; font-style: normal; font-size: 10px; text-decoration: none;text-align: right; white-space: nowrap; overflow: hidden; }
+.IWLABEL20CSS {position: absolute; left: 0px; top: 24px;z-index: 100; width: 442px; height: 27px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;color: #808080; text-align: center; white-space: nowrap; overflow: hidden; }
+.IWLABEL2CSS {position: absolute; left: 0px; top: 5px;z-index: 100; width: 442px; height: 19px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;color: #808080; text-align: center; overflow: hidden; }
+.IWREGION1CSS {position: absolute; left: 0px; top: 0px;z-index: 1100; width: 442px; height: 2px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 0px; overflow-x: auto; overflow-y: auto; background-color: #DCDCDC; padding: 0; }
+.mnItemH100 {height: 100%;}
+.mnItemW100 {width: 100%;}
+.mnItem {white-space: nowrap;}
+.mnSpacer8 {width: 8px;}
+.mnSpacer16 {width: 16px;}
+.mnSpacer24 {width: 24px; text-align: center; vertical-align: middle;}
+.DTLRGNCSS {position: absolute; left: 0px; top: 205px;z-index: 100; width: 727px; height: 59px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 0px; overflow-x: hidden; overflow-y: hidden; padding: 0; }
+.CLOCKONREGIONCSS {position: absolute; left: 0px; top: 250px;z-index: 100; width: 447px; height: 175px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 0px; overflow-x: auto; overflow-y: auto; padding: 0; }
+.TMEZNERGNCSS {position: absolute; left: 0px; top: 250px;z-index: 100; width: 447px; height: 62px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 0px; overflow-x: auto; overflow-y: auto; padding: 0; }
+.CPYRHTRGNCSS {position: absolute; left: 5px; top: 953px;z-index: 1100; width: 442px; height: 51px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 1px; border-style: none; overflow-x: auto; overflow-y: auto; padding: 0; }
+.MANRGNCSS {position: absolute; left: 3px; top: 0px;z-index: 100; width: 734px; height: 800px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border-width: 1px; border-style: none; padding: 0; }
+</style></head>
+<body OnLoad="Initialize()" OnUnload="ReleaseIWCL()" style="margin: 0;">
+<script type="text/javascript">if (typeof createIWLocker === "function") {
+  createIWLocker("/$/gfx/loading.gif");
+  ActivateLock();
+}</script>
+<script type="text/javascript">
+var PreScript=false, PostScript=false, PreAsyncScript=false, PostAsyncScript=false;
+</script>
+
+<div CLASS="MANRGNCSS" ID="MANRGN"><form onSubmit="return FormDefaultSubmit();">
+<img alt="/$/temp/ATZJQK2ecHAcu6ZY9Y5HH1qTq.jpg" CLASS="default-logo" height="169" ID="LGOIMG" src="/$/temp/ATZJQK2ecHAcu6ZY9Y5HH1qTq.jpg" STYLE="position: absolute; left: 0px; top: 4px;z-index: 100; width: 727px; height: 169px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;border: 0px ; " width="727"></form>
+<span CLASS="default-header1-label" ID="MSGLBL" STYLE="position: absolute; left: 2px; top: 492px;z-index: 100; width: 80px; height: 21px; padding: 0; font-family: 'Segoe UI'; font-weight: bold; font-style: normal; font-size: 16px; text-decoration: none;">Messages</span>
+<div CLASS="DTLRGNCSS IWCLIPCONTROL" ID="DTLRGN">
+<span CLASS="default-header1-label" ID="IWLABEL6" STYLE="position: absolute; left: 2px; top: 6px;z-index: 100; width: 100px; height: 19px; padding: 0; font-family: Arial; font-weight: bold; font-style: normal; font-size: 16px; text-decoration: none;">Shift Details</span>
+<span CLASS="DSPNMELBLCSS" ID="DSPNMELBL">Logged in as: Varghese, Rohit (5071) (Advantage Pharmacy Dandenong)</span></div>
+<div CLASS="CLOCKONREGIONCSS IWCLIPCONTROL" ID="CLOCKONREGION">
+<span CLASS="default-label" ID="BRKDTLLBL" STYLE="position: absolute; left: 2px; top: 97px;z-index: 100; width: 58px; height: 16px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;white-space: nowrap; ">Non-rostered break available.</span>
+<span CLASS="default-label" ID="SFTNMELBL" STYLE="position: absolute; left: 2px; top: 3px;z-index: 100; width: 66px; height: 16px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;white-space: nowrap; ">Non-rostered clock on available.</span>
+<span CLASS="default-header1-label" ID="IWLABEL7" STYLE="position: absolute; left: 0px; top: 72px;z-index: 100; width: 111px; height: 19px; padding: 0; font-family: Arial; font-weight: bold; font-style: normal; font-size: 16px; text-decoration: none;">Break Details</span><form onSubmit="return FormDefaultSubmit();">
+<input CLASS="default-button" ID="CLKOFFBTN" NAME="CLKOFFBTN" STYLE="position: absolute; left: 162px; top: 25px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="4" TYPE="button" VALUE="Clock Off">
+<input CLASS="default-button" DISABLED="" ID="BRKSTABTN" NAME="BRKSTABTN" STYLE="position: absolute; left: 2px; top: 117px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="5" TYPE="button" VALUE="Start Break">
+<input CLASS="default-button" DISABLED="" ID="BRKENDBTN" NAME="BRKENDBTN" STYLE="position: absolute; left: 162px; top: 117px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="6" TYPE="button" VALUE="End Break">
+<input CLASS="default-button" DISABLED="" ID="CLKONBTN" NAME="CLKONBTN" STYLE="position: absolute; left: 2px; top: 25px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="9" TYPE="button" VALUE="Clock On"></form></div>
+<div CLASS="TMEZNERGNCSS IWCLIPCONTROL" ID="TMEZNERGN" style="visibility: hidden; ">
+<span CLASS="default-label" ID="TMELOCLBL" STYLE="position: absolute; left: 2px; top: 0px;z-index: 100; width: 66px; height: 16px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;white-space: nowrap; ">Time Zone</span><form onSubmit="return FormDefaultSubmit();">
+<select CLASS="default-combobox" ID="LOCCBX" NAME="LOCCBX" SIZE="1" STYLE="position: absolute; left: 3px; top: 21px;z-index: 101; width: 294px; height: 21px; padding: 0; font-family: Arial; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;" TabIndex="8">
+<option SELECTED="" VALUE="0">Advantage&nbsp;Pharmacy&nbsp;Dandenong&nbsp;(Australia/Melbourne)</option></select></form></div>
+<div CLASS="CPYRHTRGNCSS IWCLIPCONTROL" ID="CPYRHTRGN">
+<span CLASS="IWLABEL20CSS" ID="IWLABEL20">© Copyright 2018 ClockOn Pty Ltd</span>
+<span CLASS="IWLABEL2CSS" ID="IWLABEL2">Powered by ClockOn</span>
+<div CLASS="IWREGION1CSS IWCLIPCONTROL" ID="IWREGION1"></div></div><form onSubmit="return FormDefaultSubmit();">
+
+<table class="default-mainmenu" id="MANMNU" style="position: absolute; left: 0px; top: 175px;z-index: 110; width: 727px; height: 30px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;">
+<tr><td><table class="default-mainmenu-style" id="MANMNU_submenu1" style="cursor: pointer; height: 100%; width: 100%; white-space: nowrap; border-collapse: collapse; border-spacing: 0; padding:0; ">
+<tr><td class="mnSpacer16">&nbsp;</td><td class="mnItem">Logout</td><td class="mnSpacer16">&nbsp;</td></tr></table></td></tr></table>
+<input CLASS="default-button" ID="SELALLMSGBTN" NAME="SELALLMSGBTN" STYLE="position: absolute; left: 5px; top: 517px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: 'Segoe UI'; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="2" TYPE="button" VALUE="Select All">
+<input CLASS="default-button" ID="DELMSGBTN" NAME="DELMSGBTN" STYLE="position: absolute; left: 162px; top: 517px;z-index: 100; width: 135px; height: 30px; padding: 0; font-family: 'Segoe UI'; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;-webkit-appearance: default-button; " TabIndex="3" TYPE="button" VALUE="Delete">
+<div CLASS="default-table" ID="MSGGRD" NAME="MSGGRD" STYLE="position: absolute; left: 5px; top: 557px;z-index: 100; width: 695px; height: 95px; padding: 0; font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;"><TABLE id="MSGGRDdiv0" cellpadding="0" cellspacing="0" border="0"><TR><TD colspan="2"><TABLE id="MSGGRD_" border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;" width="696px"><TR height="22px"><TD id="MSGGRDCTRLT" colspan="5" style="border-color:;text-align:center;" class="MSGGRDctrlclass">
+<font STYLE="font-size:13px;">&nbsp;</font></TD></TR></TABLE></TD></TR><TR><TD onclick="gridClick(MSGGRDObj);" onkeydown="return tablekey(MSGGRDObj, event,MSGGRDIWCL);" id="G0mg" valign="top" width="695px"><TABLE id="MSGGRD_" border="1" cellpadding="0" cellspacing="0" style="font-size:10pt;color:;border-collapse:collapse;" width="695px"><TR><TD id="G0CH1" valign="top"  bgcolor=#878787 style="border-color:; background-color:#878787;;display:none;width:50px;"><div style="width:50px;overflow:hidden;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR style="height:22px;width:100%;overflow:hidden;"><TD style="border:0px;">
+<font  color="#F8F8FF" STYLE="font-size:13px;"><B><a href="#" style="color:;" onclick="GAColClick(MSGGRDObj, 0, MSGGRDIWCL, true);"><span id=G0T0>MsgId<span></a><span style="display:none;" id="MSGGRDSINDCHECK0">ASC</span><span id="MSGGRDSIND0" style="font-size:7pt;display:none;">&#9660;</span></B></font></TD></TR></TABLE></div></TD><TD id="G0CH2" valign="top"  bgcolor=#878787 style="border-color:; background-color:#878787;width:20px;"><div style="width:20px;overflow:hidden;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;"><TR style="height:22px;width:100%;overflow:hidden;"><TD style="border:0px;">
+<font  color="#F8F8FF" STYLE="font-size:13px;"><B><span id=G0T1><span><span style="display:none;" id="MSGGRDSINDCHECK1">ASC</span><span id="MSGGRDSIND1" style="font-size:7pt;display:none;">&#9660;</span></B></font></TD></TR></TABLE></div></TD><TD id="G0CH3" valign="top"  bgcolor=#878787 style="border-color:; background-color:#878787;width:70px;"><div style="width:70px;overflow:hidden;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center;"><TR style="height:22px;width:100%;overflow:hidden;"><TD style="border:0px;">
+<font  color="#F8F8FF" STYLE="font-size:13px;"><B><span id=G0T2>Date<span><span style="display:none;" id="MSGGRDSINDCHECK2">ASC</span><span id="MSGGRDSIND2" style="font-size:7pt;display:none;">&#9660;</span></B></font></TD></TR></TABLE></div></TD><TD id="G0CH4" valign="top"  bgcolor=#878787 style="border-color:; background-color:#878787;width:350px;"><div style="width:350px;overflow:hidden;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR style="height:22px;width:100%;overflow:hidden;"><TD style="border:0px;">
+<font  color="#F8F8FF" STYLE="font-size:13px;"><B><span id=G0T3>Status<span><span style="display:none;" id="MSGGRDSINDCHECK3">ASC</span><span id="MSGGRDSIND3" style="font-size:7pt;display:none;">&#9660;</span></B></font></TD></TR></TABLE></div></TD><TD id="G0CH5" valign="top"  bgcolor=#878787 style="border-color:; background-color:#878787;width:250px;"><div style="width:250px;overflow:hidden;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR style="height:22px;width:100%;overflow:hidden;"><TD style="border:0px;">
+<font  color="#F8F8FF" STYLE="font-size:13px;"><B><span id=G0T4>Message<span><span style="display:none;" id="MSGGRDSINDCHECK4">ASC</span><span id="MSGGRDSIND4" style="font-size:7pt;display:none;">&#9660;</span></B></font></TD></TR></TABLE></div></TD></TR><TR height="22px" id="G0row1"><TD   id="G0c1r1" width="50px;" style="display:none;" onkeydown="gridkeydown(MSGGRDObj,0,0)"><DIV style="display:none;" id="CVG0R0C0">6118</DIV><DIV style="display:none;"  id="HEG0R0C0"><INPUT onblur="WGUpdEdit(MSGGRDObj,this,0,0,MSGGRDIWCL)" TYPE="text" VALUE="6118" style="border-style:solid;border-width:1px;border-color:;background-color:;width:100%;	-moz-box-sizing: border-box;-webkit-box-sizing: border-box;	box-sizing: border-box;font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;; height:19px;" onkeypress="return KeyPress(MSGGRDObj,this,1,event,true,0,0,0,1)" onkeydown="return KeyDown(MSGGRDObj,this,0,0,event)" onkeyup="return WGKeyUp(this);" onfocus="MSGGRDObj.focusel=this;"  id="G0AER0C0"></DIV><DIV style="width:100%;" id="G0D0C0">6118</DIV></TD><TD   id="G0c2r1" align="center" width="20px;"><DIV style="display:none;" id="CVG0R0C1"></DIV><DIV style="display:none;"  id="HEG0R0C1"></DIV><INPUT TYPE="CHECKBOX" onclick="RowClick(MSGGRDObj,this,1,5,2,true,MSGGRDIWCL)"   id="G0CK1R0"></TD><TD   id="G0c3r1" align="center" width="70px;" onkeydown="gridkeydown(MSGGRDObj,2,0)"><DIV style="display:none;" id="CVG0R0C2">21/09/2021</DIV><DIV style="display:none;"  id="HEG0R0C2"></DIV><DIV style="width:100%;" id="G0D0C2">21/09/2021</DIV></TD><TD   id="G0c4r1" width="350px;" onkeydown="gridkeydown(MSGGRDObj,3,0)"><DIV style="display:none;" id="CVG0R0C3">Payroll Notification</DIV><DIV style="display:none;"  id="HEG0R0C3"></DIV><DIV style="width:100%;" id="G0D0C3">Payroll Notification</DIV></TD><TD   id="G0c5r1" width="250px;" onkeydown="gridkeydown(MSGGRDObj,4,0)"><DIV style="display:none;" id="CVG0R0C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(06/09/2021
+-
+19/09/2021
+)
+</DIV><DIV style="display:none;"  id="HEG0R0C4"></DIV><DIV style="width:100%;" id="G0D0C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(06/09/2021
+-
+19/09/2021
+)
+</DIV></TD></TR><TR height="22px" id="G0row2"><TD   id="G0c1r2" style="display:none;" onkeydown="gridkeydown(MSGGRDObj,0,1)"><DIV style="display:none;" id="CVG0R1C0">6201</DIV><DIV style="display:none;"  id="HEG0R1C0"><INPUT onblur="WGUpdEdit(MSGGRDObj,this,0,1,MSGGRDIWCL)" TYPE="text" VALUE="6201" style="border-style:solid;border-width:1px;border-color:;background-color:;width:100%;	-moz-box-sizing: border-box;-webkit-box-sizing: border-box;	box-sizing: border-box;font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;; height:19px;" onkeypress="return KeyPress(MSGGRDObj,this,1,event,true,0,1,0,1)" onkeydown="return KeyDown(MSGGRDObj,this,0,1,event)" onkeyup="return WGKeyUp(this);" onfocus="MSGGRDObj.focusel=this;"  id="G0AER1C0"></DIV><DIV style="width:100%;" id="G0D1C0">6201</DIV></TD><TD   id="G0c2r2" align="center"><DIV style="display:none;" id="CVG0R1C1"></DIV><DIV style="display:none;"  id="HEG0R1C1"></DIV><INPUT TYPE="CHECKBOX" onclick="RowClick(MSGGRDObj,this,2,5,2,true,MSGGRDIWCL)"   id="G0CK1R1"></TD><TD   id="G0c3r2" align="center" onkeydown="gridkeydown(MSGGRDObj,2,1)"><DIV style="display:none;" id="CVG0R1C2">05/10/2021</DIV><DIV style="display:none;"  id="HEG0R1C2"></DIV><DIV style="width:100%;" id="G0D1C2">05/10/2021</DIV></TD><TD   id="G0c4r2" onkeydown="gridkeydown(MSGGRDObj,3,1)"><DIV style="display:none;" id="CVG0R1C3">Payroll Notification</DIV><DIV style="display:none;"  id="HEG0R1C3"></DIV><DIV style="width:100%;" id="G0D1C3">Payroll Notification</DIV></TD><TD   id="G0c5r2" onkeydown="gridkeydown(MSGGRDObj,4,1)"><DIV style="display:none;" id="CVG0R1C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(20/09/2021
+-
+03/10/2021
+)
+</DIV><DIV style="display:none;"  id="HEG0R1C4"></DIV><DIV style="width:100%;" id="G0D1C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(20/09/2021
+-
+03/10/2021
+)
+</DIV></TD></TR><TR height="22px" id="G0row3"><TD   id="G0c1r3" style="display:none;" onkeydown="gridkeydown(MSGGRDObj,0,2)"><DIV style="display:none;" id="CVG0R2C0">6289</DIV><DIV style="display:none;"  id="HEG0R2C0"><INPUT onblur="WGUpdEdit(MSGGRDObj,this,0,2,MSGGRDIWCL)" TYPE="text" VALUE="6289" style="border-style:solid;border-width:1px;border-color:;background-color:;width:100%;	-moz-box-sizing: border-box;-webkit-box-sizing: border-box;	box-sizing: border-box;font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;; height:19px;" onkeypress="return KeyPress(MSGGRDObj,this,1,event,true,0,2,0,1)" onkeydown="return KeyDown(MSGGRDObj,this,0,2,event)" onkeyup="return WGKeyUp(this);" onfocus="MSGGRDObj.focusel=this;"  id="G0AER2C0"></DIV><DIV style="width:100%;" id="G0D2C0">6289</DIV></TD><TD   id="G0c2r3" align="center"><DIV style="display:none;" id="CVG0R2C1"></DIV><DIV style="display:none;"  id="HEG0R2C1"></DIV><INPUT TYPE="CHECKBOX" onclick="RowClick(MSGGRDObj,this,3,5,2,true,MSGGRDIWCL)"   id="G0CK1R2"></TD><TD   id="G0c3r3" align="center" onkeydown="gridkeydown(MSGGRDObj,2,2)"><DIV style="display:none;" id="CVG0R2C2">19/10/2021</DIV><DIV style="display:none;"  id="HEG0R2C2"></DIV><DIV style="width:100%;" id="G0D2C2">19/10/2021</DIV></TD><TD   id="G0c4r3" onkeydown="gridkeydown(MSGGRDObj,3,2)"><DIV style="display:none;" id="CVG0R2C3">Payroll Notification</DIV><DIV style="display:none;"  id="HEG0R2C3"></DIV><DIV style="width:100%;" id="G0D2C3">Payroll Notification</DIV></TD><TD   id="G0c5r3" onkeydown="gridkeydown(MSGGRDObj,4,2)"><DIV style="display:none;" id="CVG0R2C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(04/10/2021
+-
+17/10/2021
+)
+</DIV><DIV style="display:none;"  id="HEG0R2C4"></DIV><DIV style="width:100%;" id="G0D2C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(04/10/2021
+-
+17/10/2021
+)
+</DIV></TD></TR><TR height="22px" id="G0row4"><TD   id="G0c1r4" style="display:none;" onkeydown="gridkeydown(MSGGRDObj,0,3)"><DIV style="display:none;" id="CVG0R3C0">6477</DIV><DIV style="display:none;"  id="HEG0R3C0"><INPUT onblur="WGUpdEdit(MSGGRDObj,this,0,3,MSGGRDIWCL)" TYPE="text" VALUE="6477" style="border-style:solid;border-width:1px;border-color:;background-color:;width:100%;	-moz-box-sizing: border-box;-webkit-box-sizing: border-box;	box-sizing: border-box;font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;; height:19px;" onkeypress="return KeyPress(MSGGRDObj,this,1,event,true,0,3,0,1)" onkeydown="return KeyDown(MSGGRDObj,this,0,3,event)" onkeyup="return WGKeyUp(this);" onfocus="MSGGRDObj.focusel=this;"  id="G0AER3C0"></DIV><DIV style="width:100%;" id="G0D3C0">6477</DIV></TD><TD   id="G0c2r4" align="center"><DIV style="display:none;" id="CVG0R3C1"></DIV><DIV style="display:none;"  id="HEG0R3C1"></DIV><INPUT TYPE="CHECKBOX" onclick="RowClick(MSGGRDObj,this,4,5,2,true,MSGGRDIWCL)"   id="G0CK1R3"></TD><TD   id="G0c3r4" align="center" onkeydown="gridkeydown(MSGGRDObj,2,3)"><DIV style="display:none;" id="CVG0R3C2">03/11/2021</DIV><DIV style="display:none;"  id="HEG0R3C2"></DIV><DIV style="width:100%;" id="G0D3C2">03/11/2021</DIV></TD><TD   id="G0c4r4" onkeydown="gridkeydown(MSGGRDObj,3,3)"><DIV style="display:none;" id="CVG0R3C3">Payroll Notification</DIV><DIV style="display:none;"  id="HEG0R3C3"></DIV><DIV style="width:100%;" id="G0D3C3">Payroll Notification</DIV></TD><TD   id="G0c5r4" onkeydown="gridkeydown(MSGGRDObj,4,3)"><DIV style="display:none;" id="CVG0R3C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(18/10/2021
+-
+31/10/2021
+)
+</DIV><DIV style="display:none;"  id="HEG0R3C4"></DIV><DIV style="width:100%;" id="G0D3C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(18/10/2021
+-
+31/10/2021
+)
+</DIV></TD></TR><TR height="22px" id="G0row5"><TD   id="G0c1r5" style="display:none;" onkeydown="gridkeydown(MSGGRDObj,0,4)"><DIV style="display:none;" id="CVG0R4C0">6905</DIV><DIV style="display:none;"  id="HEG0R4C0"><INPUT onblur="WGUpdEdit(MSGGRDObj,this,0,4,MSGGRDIWCL)" TYPE="text" VALUE="6905" style="border-style:solid;border-width:1px;border-color:;background-color:;width:100%;	-moz-box-sizing: border-box;-webkit-box-sizing: border-box;	box-sizing: border-box;font-weight: normal; font-style: normal; font-size: 13px; text-decoration: none;; height:19px;" onkeypress="return KeyPress(MSGGRDObj,this,1,event,true,0,4,0,1)" onkeydown="return KeyDown(MSGGRDObj,this,0,4,event)" onkeyup="return WGKeyUp(this);" onfocus="MSGGRDObj.focusel=this;"  id="G0AER4C0"></DIV><DIV style="width:100%;" id="G0D4C0">6905</DIV></TD><TD   id="G0c2r5" align="center"><DIV style="display:none;" id="CVG0R4C1"></DIV><DIV style="display:none;"  id="HEG0R4C1"></DIV><INPUT TYPE="CHECKBOX" onclick="RowClick(MSGGRDObj,this,5,5,2,true,MSGGRDIWCL)"   id="G0CK1R4"></TD><TD   id="G0c3r5" align="center" onkeydown="gridkeydown(MSGGRDObj,2,4)"><DIV style="display:none;" id="CVG0R4C2">11/01/2022</DIV><DIV style="display:none;"  id="HEG0R4C2"></DIV><DIV style="width:100%;" id="G0D4C2">11/01/2022</DIV></TD><TD   id="G0c4r5" onkeydown="gridkeydown(MSGGRDObj,3,4)"><DIV style="display:none;" id="CVG0R4C3">Payroll Notification</DIV><DIV style="display:none;"  id="HEG0R4C3"></DIV><DIV style="width:100%;" id="G0D4C3">Payroll Notification</DIV></TD><TD   id="G0c5r5" onkeydown="gridkeydown(MSGGRDObj,4,4)"><DIV style="display:none;" id="CVG0R4C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(27/12/2021
+-
+09/01/2022
+)
+</DIV><DIV style="display:none;"  id="HEG0R4C4"></DIV><DIV style="width:100%;" id="G0D4C4">Your
+employee
+payslip
+is
+ready
+for
+viewing
+(27/12/2021
+-
+09/01/2022
+)
+</DIV></TD></TR></TABLE></TD></TR><TR><TD><TABLE id="MSGGRD_" border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse" width="696"><TR><TD  style="border-color:; background-color:#F0F0F0;display:none; width:50px;"><div style="overflow:hidden;height:22px; width:50px;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR><TD style="border:0px;">
+<font STYLE="font-size:13px;">&nbsp;</font></TD></TR></TABLE></div></TD><TD  style="border-color:; background-color:#F0F0F0; width:20px;"><div style="overflow:hidden;height:22px; width:20px;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR><TD style="border:0px;">
+<font STYLE="font-size:13px;">&nbsp;</font></TD></TR></TABLE></div></TD><TD  style="border-color:; background-color:#F0F0F0; width:70px;"><div style="overflow:hidden;height:22px; width:70px;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR><TD style="border:0px;">
+<font STYLE="font-size:13px;">&nbsp;</font></TD></TR></TABLE></div></TD><TD  style="border-color:; background-color:#F0F0F0; width:350px;"><div style="overflow:hidden;height:22px; width:350px;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR><TD style="border:0px;">
+<font STYLE="font-size:13px;">&nbsp;</font></TD></TR></TABLE></div></TD><TD  style="border-color:; background-color:#F0F0F0; width:250px;"><div style="overflow:hidden;height:22px; width:250px;"><TABLE border="0" cellpadding="0" cellspacing="0" width="100%" style=""><TR><TD style="border:0px;">
+<font STYLE="font-size:13px;">Total: 5</font></TD></TR></TABLE></div></TD></TR></TABLE></TD></TR></TABLE><input ID="MSGGRD_INPUT" NAME="MSGGRD" TYPE="hidden"></div></form></div><form action="/" method="POST" name="SubmitForm">
+<input name="CLKOFFBTN" type="hidden">
+<input name="BRKSTABTN" type="hidden">
+<input name="BRKENDBTN" type="hidden">
+<input name="CLKONBTN" type="hidden">
+<input name="LOCCBX" type="hidden">
+<input name="SELALLMSGBTN" type="hidden">
+<input name="DELMSGBTN" type="hidden">
+<input name="MSGGRD" type="hidden">
+<input name="IW_FormName" type="hidden" value="EmployeeClockOnFrm">
+<input name="IW_FormClass" type="hidden" value="TEmployeeClockOnFrm"></form></body></html>
