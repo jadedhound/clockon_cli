@@ -17,6 +17,7 @@ enum MyError {
     ActionFailure(usize),
     NoOperator,
     NoActionToTake,
+    BadStatus,
 }
 
 impl std::error::Error for MyError {
@@ -111,13 +112,13 @@ fn extract_session_id(header: HeaderValue) -> BoxedError<String> {
     }
 }
 
-fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<()> {
+fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<String> {
     println!("Doing action: {action}");
     let url = format!("{URL}$/callback?callback={action}.DoOnAsyncClick&which=0&modifiers=");
     let res = client.post(url).header(COOKIE, id).send()?;
     let body = res.text()?;
     if body.len() > 500 {
-        Ok(())
+        Ok(body)
     } else {
         Err(MyError::ActionFailure(body.len()))?
     }
@@ -156,15 +157,27 @@ fn get_disabled_status(line: &str) -> bool {
 }
 
 fn get_status(html: &str) -> BoxedError<Status> {
-    let mut lines = html.lines();
-    let logged_off = get_disabled_status(lines.nth(171).unwrap());
-    let no_break = get_disabled_status(lines.nth(1).unwrap());
-    let status = if logged_off {
+    let mut lines = html.lines().into_iter().filter(|x| x.contains("DISABLED"));
+    let mut get_id = || {
+        lines
+            .next()
+            .and_then(|x| x.split_whitespace().find(|a| a.contains("ID=")))
+            .map(|x| x.chars().skip(3).collect::<String>())
+            .ok_or(MyError::BadStatus)
+    };
+    const BRKOFF: &str = "\"BRKENDBTN\"";
+    const BRKON: &str = "\"BRKSTABTN\"";
+    let id_one = get_id()?;
+    let id_two = get_id()?;
+    // If there are 3 disabled btns then we are logged off
+    let status = if lines.next().is_some() {
         Status::ClockedOff
-    } else if no_break {
+    } else if id_one == BRKON || id_two == BRKON {
+        Status::OnBreak
+    } else if id_one == BRKOFF || id_two == BRKOFF {
         Status::ClockedOn
     } else {
-        Status::OnBreak
+        Err(MyError::BadStatus)?
     };
     println!("{status}");
     Ok(status)
@@ -190,7 +203,7 @@ fn main() -> BoxedError<()> {
     let body = login(&client, &id)?;
     let status = get_status(&body)?;
     let action = status.to_action(get_operator()?)?;
-    do_action(&client, &id, action)?;
+    let _body = do_action(&client, &id, action)?;
     Ok(())
 }
 
@@ -200,32 +213,32 @@ mod tests {
 
     #[test]
     fn action_if_clocked_on_and_on() {
-        let body = std::fs::read_to_string("./test_files/clocked_on.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/clockon.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(true).expect("should get action");
         assert_eq!("BRKSTABTN", action.to_string());
     }
     #[test]
     fn action_if_clocked_on_and_off() {
-        let body = std::fs::read_to_string("./test_files/clocked_on.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/clockon.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(false).expect("should get action");
         assert_eq!("CLKOFFBTN", action.to_string());
     }
     #[test]
     fn action_if_clocked_off_and_on() {
-        let body = std::fs::read_to_string("./test_files/clocked_off.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/clockoff.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(true).expect("should get action");
         assert_eq!("CLKONBTN", action.to_string());
     }
     #[test]
     fn action_if_clocked_off_and_off() {
-        let body = std::fs::read_to_string("./test_files/clocked_off.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/clockoff.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(false).expect_err("should be an error");
         assert_eq!(
@@ -235,8 +248,8 @@ mod tests {
     }
     #[test]
     fn action_if_on_break_and_on() {
-        let body = std::fs::read_to_string("./test_files/on_break.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/break_on.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(true).expect_err("should be an error");
         assert_eq!(
@@ -246,8 +259,8 @@ mod tests {
     }
     #[test]
     fn action_if_on_break_and_off() {
-        let body = std::fs::read_to_string("./test_files/on_break.html")
-            .expect("unable to find test file");
+        let body =
+            std::fs::read_to_string("./examples/break_on.html").expect("unable to find test file");
         let result = get_status(&body).expect("should be able to get status");
         let action = result.to_action(false).expect("should get action");
         assert_eq!("BRKENDBTN", action.to_string());

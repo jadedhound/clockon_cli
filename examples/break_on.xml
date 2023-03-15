@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><response>
+<update>
+<control id="BRKSTABTN" type="IWBUTTON">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">30px</attr>
+  <attr name="left">2px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">117px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">135px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<caption>Start Break</caption>
+<color>-16777201</color>
+<css>default-button</css>
+<supportsinput>false</supportsinput>
+<enabled>false</enabled>
+<hint></hint></control><control id="BRKENDBTN" type="IWBUTTON">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">30px</attr>
+  <attr name="left">162px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">117px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">135px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<caption>End Break</caption>
+<color>-16777201</color>
+<css>default-button</css>
+<supportsinput>false</supportsinput>
+<enabled>true</enabled>
+<hint></hint></control><control id="BRKDTLLBL" type="IWLABEL">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">16px</attr>
+  <attr name="left">2px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">97px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">58px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<innerhtml><![CDATA[Break unrostered: End time unavailable]]></innerhtml>
+<css>default-label</css>
+<supportsinput>false</supportsinput>
+<enabled>true</enabled>
+<hint></hint></control></update>
+
+
+<submit>/</submit>
+<trackid>3</trackid></response>

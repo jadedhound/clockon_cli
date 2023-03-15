@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><response>
+<update>
+<control id="CLKOFFBTN" type="IWBUTTON">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">30px</attr>
+  <attr name="left">162px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">25px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">135px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<caption>Clock Off</caption>
+<color>-16777201</color>
+<css>default-button</css>
+<supportsinput>false</supportsinput>
+<enabled>false</enabled>
+<hint></hint></control><control id="BRKSTABTN" type="IWBUTTON">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">30px</attr>
+  <attr name="left">2px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">117px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">135px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<caption>Start Break</caption>
+<color>-16777201</color>
+<css>default-button</css>
+<supportsinput>false</supportsinput>
+<enabled>false</enabled>
+<hint></hint></control><control id="SFTNMELBL" type="IWLABEL">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">16px</attr>
+  <attr name="left">2px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">3px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">66px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<innerhtml><![CDATA[Non-rostered clock on available.]]></innerhtml>
+<css>default-label</css>
+<supportsinput>false</supportsinput>
+<enabled>true</enabled>
+<hint></hint></control><control id="CLKONBTN" type="IWBUTTON">
+<style>
+  <attr name="font-family">Arial</attr>
+  <attr name="font-size">13px</attr>
+  <attr name="font-style">normal</attr>
+  <attr name="font-weight">normal</attr>
+  <attr name="height">30px</attr>
+  <attr name="left">2px</attr>
+  <attr name="text-decoration">none</attr>
+  <attr name="top">25px</attr>
+  <attr name="visibility">inherit</attr>
+  <attr name="width">135px</attr>
+  <attr name="z-index">100</attr>
+</style>
+<caption>Clock On</caption>
+<color>-16777201</color>
+<css>default-button</css>
+<supportsinput>false</supportsinput>
+<enabled>true</enabled>
+<hint></hint></control></update>
+
+
+<submit>/</submit>
+<trackid>3</trackid></response>
