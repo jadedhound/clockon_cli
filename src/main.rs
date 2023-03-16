@@ -1,3 +1,5 @@
+#![feature(iter_array_chunks)]
+
 use reqwest::{
     blocking::Client,
     header::{HeaderValue, COOKIE},
@@ -18,6 +20,7 @@ enum MyError {
     NoOperator,
     NoActionToTake,
     BadStatus,
+    ResponseUnParsable,
 }
 
 impl std::error::Error for MyError {
@@ -83,7 +86,7 @@ impl std::fmt::Display for Status {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Action {
     ClockOn,
     ClockOff,
@@ -112,12 +115,56 @@ fn extract_session_id(header: HeaderValue) -> BoxedError<String> {
     }
 }
 
+fn get_action_from_result(xml: &str) -> BoxedError<Action> {
+    const BRKOFF: &str = "End Break";
+    const CLKOFF: &str = "Clock Off";
+
+    let get_inner = |a: &str| {
+        a.chars()
+            .skip_while(|x| *x != '>')
+            .skip(1)
+            .take_while(|x| *x != '<')
+            .collect::<String>()
+    };
+    let lines = xml
+        .lines()
+        .filter(|x| x.contains("caption") || x.contains("enabled") || x.contains("innerhtml"))
+        .array_chunks();
+    let mut is_on_break = (false, false);
+    let mut is_clocking_on = (false, false);
+    for [caption, is_enabled] in lines {
+        let inner = get_inner(caption);
+        if inner == CLKOFF {
+            is_clocking_on = (true, get_inner(is_enabled) == "true")
+        } else if inner == BRKOFF {
+            is_on_break = (true, get_inner(is_enabled) == "true")
+        }
+    }
+
+    // We need to reverse engineer the action that would lead to
+    // this response, hence the flipped action matching
+    let action = if is_clocking_on.0 {
+        match is_clocking_on.1 {
+            true => Action::ClockOn,
+            false => Action::ClockOff,
+        }
+    } else if is_on_break.0 {
+        match is_on_break.1 {
+            true => Action::BreakOn,
+            false => Action::BreakOff,
+        }
+    } else {
+        Err(MyError::ResponseUnParsable)?
+    };
+    Ok(action)
+}
+
 fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<String> {
     println!("Doing action: {action}");
     let url = format!("{URL}$/callback?callback={action}.DoOnAsyncClick&which=0&modifiers=");
     let res = client.post(url).header(COOKIE, id).send()?;
     let body = res.text()?;
-    if body.len() > 500 {
+    if action == get_action_from_result(&body)? {
         Ok(body)
     } else {
         Err(MyError::ActionFailure(body.len()))?
@@ -151,22 +198,23 @@ fn get_cookie(client: &Client) -> BoxedError<HeaderValue> {
     Ok(cookie)
 }
 
-fn get_disabled_status(line: &str) -> bool {
-    let substr: String = line.chars().skip(30).take(8).collect();
-    substr == "DISABLED"
-}
-
 fn get_status(html: &str) -> BoxedError<Status> {
-    let mut lines = html.lines().into_iter().filter(|x| x.contains("DISABLED"));
+    let get_inner = |x: &str| {
+        x.chars()
+            .skip(4)
+            .take_while(|a| *a != '"')
+            .collect::<String>()
+    };
+    let mut lines = html.lines().filter(|x| x.contains("DISABLED"));
     let mut get_id = || {
         lines
             .next()
             .and_then(|x| x.split_whitespace().find(|a| a.contains("ID=")))
-            .map(|x| x.chars().skip(3).collect::<String>())
+            .map(get_inner)
             .ok_or(MyError::BadStatus)
     };
-    const BRKOFF: &str = "\"BRKENDBTN\"";
-    const BRKON: &str = "\"BRKSTABTN\"";
+    const BRKOFF: &str = "BRKENDBTN";
+    const BRKON: &str = "BRKSTABTN";
     let id_one = get_id()?;
     let id_two = get_id()?;
     // If there are 3 disabled btns then we are logged off
@@ -211,58 +259,43 @@ fn main() -> BoxedError<()> {
 mod tests {
     use super::*;
 
-    #[test]
-    fn action_if_clocked_on_and_on() {
-        let body =
-            std::fs::read_to_string("./examples/clockon.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(true).expect("should get action");
-        assert_eq!("BRKSTABTN", action.to_string());
+    fn get_action_from_xml(xml: &str) -> Action {
+        let body = std::fs::read_to_string(format!("./examples/{xml}.xml")).expect("xml exists");
+        get_action_from_result(&body).expect("parse action from xml page")
     }
+
     #[test]
-    fn action_if_clocked_on_and_off() {
-        let body =
-            std::fs::read_to_string("./examples/clockon.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(false).expect("should get action");
-        assert_eq!("CLKOFFBTN", action.to_string());
+    fn read_action_from_response() {
+        assert_eq!(Action::ClockOff, get_action_from_xml("clock_off"));
+        assert_eq!(Action::ClockOn, get_action_from_xml("clock_on"));
+        assert_eq!(Action::BreakOn, get_action_from_xml("break_on"));
+        assert_eq!(Action::BreakOff, get_action_from_xml("break_off"));
     }
-    #[test]
-    fn action_if_clocked_off_and_on() {
-        let body =
-            std::fs::read_to_string("./examples/clockoff.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(true).expect("should get action");
-        assert_eq!("CLKONBTN", action.to_string());
+
+    fn action_from_page(page: &str, to_action: bool) -> Action {
+        let body = std::fs::read_to_string(format!("./examples/{page}.html"))
+            .expect("html example exists");
+        let result = get_status(&body).expect("able to get status");
+        result.to_action(to_action).expect("get action from result")
     }
-    #[test]
-    fn action_if_clocked_off_and_off() {
-        let body =
-            std::fs::read_to_string("./examples/clockoff.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(false).expect_err("should be an error");
-        assert_eq!(
-            format!("{:?}", MyError::NoActionToTake),
-            format!("{:?}", action)
-        );
+
+    fn err_from_page(page: &str, to_action: bool) -> bool {
+        let body = std::fs::read_to_string(format!("./examples/{page}.html"))
+            .expect("html example exists");
+        let result = get_status(&body).expect("able to get status");
+        let err = result
+            .to_action(to_action)
+            .expect_err("get action from result");
+        format!("{:?}", MyError::NoActionToTake) == format!("{:?}", err)
     }
+
     #[test]
-    fn action_if_on_break_and_on() {
-        let body =
-            std::fs::read_to_string("./examples/break_on.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(true).expect_err("should be an error");
-        assert_eq!(
-            format!("{:?}", MyError::NoActionToTake),
-            format!("{:?}", action)
-        );
-    }
-    #[test]
-    fn action_if_on_break_and_off() {
-        let body =
-            std::fs::read_to_string("./examples/break_on.html").expect("unable to find test file");
-        let result = get_status(&body).expect("should be able to get status");
-        let action = result.to_action(false).expect("should get action");
-        assert_eq!("BRKENDBTN", action.to_string());
+    fn decide_action_from_login_page() {
+        assert_eq!(Action::BreakOn, action_from_page("clockon", true));
+        assert_eq!(Action::ClockOff, action_from_page("clockon", false));
+        assert_eq!(Action::ClockOn, action_from_page("clockoff", true));
+        assert!(err_from_page("clockoff", false));
+        assert!(err_from_page("break_on", true));
+        assert_eq!(Action::BreakOff, action_from_page("break_on", false));
     }
 }
