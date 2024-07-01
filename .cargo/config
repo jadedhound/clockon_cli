@@ -1,2 +1,2 @@
 [target.aarch64-linux-android]
-linker = "aarch64-linux-android21-clang"
+linker = "/home/rohit/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang"
