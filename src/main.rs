@@ -1,7 +1,6 @@
 #![feature(iter_array_chunks)]
 
-mod id;
-
+use const_format::formatcp;
 use reqwest::{
     blocking::Client,
     header::{HeaderValue, COOKIE},
@@ -10,7 +9,10 @@ use std::collections::HashMap;
 
 type BoxedError<T> = Result<T, Box<dyn std::error::Error>>;
 
-const BASE_URL: &str = "https://webportal.clockon.com.au/";
+pub const INSTANCE: &str = "";
+pub const USERNAME: &str = "";
+pub const PASSWORD: &str = "";
+const URL: &str = formatcp!("https://webportal.clockon.com.au:{INSTANCE}/");
 const UAGENT: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
 #[derive(Debug)]
@@ -162,12 +164,8 @@ fn get_action_from_result(xml: &str) -> BoxedError<Action> {
 }
 
 fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<String> {
-    use id::INSTANCE;
-
     println!("Doing action: {action}");
-    let url = format!(
-        "{BASE_URL}:{INSTANCE}/$/callback?callback={action}.DoOnAsyncClick&which=0&modifiers="
-    );
+    let url = format!("{URL}$/callback?callback={action}.DoOnAsyncClick&which=0&modifiers=");
     let res = client.post(url).header(COOKIE, id).send()?;
     let body = res.text()?;
     if action == get_action_from_result(&body)? {
@@ -180,15 +178,11 @@ fn do_action(client: &Client, id: &str, action: Action) -> BoxedError<String> {
 fn login(client: &Client, id: &str) -> BoxedError<String> {
     println!("Logging in");
     let form = HashMap::from([
-        ("USRNMEEDT", id::USERNAME),
-        ("PSSWRDEDT", id::PASSWORD),
+        ("USRNMEEDT", USERNAME),
+        ("PSSWRDEDT", PASSWORD),
         ("IW_Action", "LOGINBTN"),
     ]);
-    let res = client
-        .post(BASE_URL)
-        .header(COOKIE, id)
-        .form(&form)
-        .send()?;
+    let res = client.post(URL).header(COOKIE, id).form(&form).send()?;
     let body = res.text()?;
     if body.len() < 75000 {
         Ok(body)
@@ -199,7 +193,7 @@ fn login(client: &Client, id: &str) -> BoxedError<String> {
 
 fn get_cookie(client: &Client) -> BoxedError<HeaderValue> {
     println!("Requesting cookie");
-    let resp = client.get(BASE_URL).send()?;
+    let resp = client.get(URL).send()?;
     let cookie = resp
         .headers()
         .get("Set-Cookie")

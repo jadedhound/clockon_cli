@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+const_format = "0.2.32"
 reqwest = { version = "0.12.5", features = ["blocking", "json"] }
 openssl = { version = "0.10", features = ["vendored"] }
 
